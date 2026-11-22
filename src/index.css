@@ -1,0 +1,210 @@
+@import './styles/tokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply min-h-screen transition-colors duration-300;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  .font-heading {
+    font-family: var(--font-heading);
+    font-weight: 700;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
+      transition-duration: 0.01ms !important;
+    }
+    .btn,
+    .lift,
+    .btn:hover,
+    .btn:active,
+    .lift:hover,
+    .lift:active {
+      transform: none !important;
+    }
+  }
+}
+
+/* ---- Motion (CSS keyframes only; all disabled under prefers-reduced-motion above) ---- */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes float {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-4px);
+  }
+}
+@keyframes ring-draw {
+  from {
+    stroke-dashoffset: var(--ring-circ);
+  }
+}
+
+/* staggered entrance: set style={{ '--i': n }}, 70ms apart */
+.enter {
+  animation: slide-up 450ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+/* quick variant for dense lists (member tiles): 8ms apart, capped so long lists don't lag */
+.enter-fast {
+  animation: slide-up 130ms ease-out backwards;
+  animation-delay: calc(min(var(--i, 0), 10) * 8ms);
+}
+.pop-in {
+  animation: pop-in 450ms cubic-bezier(0.3, 1.4, 0.5, 1) backwards;
+  animation-delay: var(--delay, 400ms);
+}
+@keyframes sheet-up {
+  from { transform: translateY(24px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.sheet-up {
+  animation: sheet-up 140ms ease-out;
+}
+.fade-in {
+  animation: fade-in 120ms ease-out;
+}
+.float {
+  animation: float 2.8s ease-in-out infinite alternate;
+}
+.ring-draw {
+  animation: ring-draw 350ms cubic-bezier(0.3, 0.7, 0.2, 1) backwards;
+}
+.lift {
+  transition: transform var(--transition), box-shadow var(--transition), background-color var(--transition),
+    border-color var(--transition);
+}
+.lift:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.lift:active:not(:disabled) {
+  transform: scale(0.98);
+  box-shadow: var(--shadow-sm);
+}
+
+@layer components {
+  .card {
+    background-color: var(--surface);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 font-bold select-none
+           disabled:opacity-50 disabled:cursor-not-allowed;
+    min-height: 48px;
+    padding: 0 var(--space-2);
+    border-radius: var(--radius-1);
+    transition: background-color var(--transition), border-color var(--transition),
+      color var(--transition), transform var(--transition), filter var(--transition);
+  }
+  .btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+  .btn:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  .btn-primary {
+    @apply btn;
+    min-height: 54px;
+    border-radius: var(--radius-2);
+    background-color: var(--accent);
+    color: var(--on-accent);
+    box-shadow: var(--shadow-md);
+  }
+  .btn-primary:hover:not(:disabled) {
+    filter: brightness(0.92);
+  }
+  .btn-primary:active:not(:disabled) {
+    filter: brightness(0.86);
+  }
+
+  /* outline */
+  .btn-secondary {
+    @apply btn;
+    background-color: var(--surface);
+    color: var(--text);
+    border: 1.5px solid var(--border);
+  }
+  .btn-secondary svg {
+    color: var(--accent);
+  }
+  .btn-secondary:hover:not(:disabled) {
+    background-color: var(--surface-2);
+  }
+  .btn-secondary:active:not(:disabled) {
+    background-color: var(--border);
+  }
+
+  .btn-quiet {
+    @apply btn;
+    background-color: transparent;
+    color: var(--muted);
+  }
+  .btn-quiet:hover:not(:disabled) {
+    background-color: var(--surface-2);
+    color: var(--text);
+  }
+
+  .btn-ghost {
+    @apply bg-transparent hover:bg-tea-100 dark:hover:bg-tea-900 text-tea-700 dark:text-tea-300
+           font-medium rounded-xl px-4 py-2 transition-colors duration-150 select-none;
+  }
+}

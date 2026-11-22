@@ -1,0 +1,48 @@
+/* Design tokens — 8px spacing grid, rose-tinted palette, one accent. */
+:root {
+  /* spacing (8px grid, 4px half-step) */
+  --space-half: 4px;
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+
+  /* radii */
+  --radius-1: 14px;
+  --radius-2: 18px;
+  --radius-3: 24px;
+  --radius-ctl: var(--radius-1);
+  --radius-card: var(--radius-2);
+
+  /* soft shadows only */
+  --shadow-sm: 0 1px 2px rgb(216 7 60 / 0.08), 0 2px 8px rgb(216 7 60 / 0.06);
+  --shadow-md: 0 2px 4px rgb(216 7 60 / 0.08), 0 8px 24px rgb(216 7 60 / 0.10);
+
+  /* touch target */
+  --target: 44px;
+
+  --transition: 150ms ease;
+
+  /* color — light (default) */
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #fde7ec;
+  --border: #f4bccb;
+  --text: #2e0b15;
+  --muted: #7d4857;
+  --accent: #D8073C;
+  --on-accent: #ffffff;
+  --ink: #2e0b15;
+  --on-ink: #ffffff;
+  --focus: var(--accent);
+
+  /* aliases used by older components */
+  --text-muted: var(--muted);
+  --accent-soft: var(--surface-2);
+  --color-bg: var(--bg);
+  --color-card: var(--surface);
+  --color-text: var(--text);
+
+  --font-heading: 'Nunito Variable', 'Nunito', system-ui, sans-serif;
+  --font-sans: 'Nunito Variable', 'Nunito', system-ui, sans-serif;
+}
