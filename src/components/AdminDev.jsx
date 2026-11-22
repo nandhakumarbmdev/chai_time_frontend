@@ -3,8 +3,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Ban, GitCommit, KeyRound, Rocket, Send } from 'lucide-react';
 import { Button } from './ui/Button.jsx';
 import { Badge } from './Primitives.jsx';
-import { devApi } from '../api/dev.js';
-import { socket } from '../api/socket.js';
+import { devApi, devSocket as socket } from '../api/dev.js';
 
 const KEY_STORAGE = 'chai_dev_admin_key';
 const ACTIVE = ['queued', 'running', 'testing', 'deploying'];
